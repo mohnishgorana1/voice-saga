@@ -11,8 +11,8 @@ export default function RootLayout({
 }>) {
   return (
     <div className="">
-      <main className="min-h-screen w-full p-5 flex flex-wrap ">
-        <div className="hidden md:block p-5 w-[20%] border-r-2 border-opacity-20 border-r-orange-1">
+      <main className="min-h-screen w-full px-5 flex flex-wrap ">
+        <div className="hidden md:block p-5 w-[20%] border-r-2 border-opacity-20 border-r-white-1">
           <LeftSidebar />
         </div>
         <section className="p-5 w-full md:w-[60%] ">
@@ -30,7 +30,7 @@ export default function RootLayout({
 
           </div>
         </section>
-        <div className="hidden md:block p-5 w-[20%] ">
+        <div className="hidden md:block p-5 w-[20%] text-white-1 border-l-2 border-opacity-20 border-l-white-1">
           <RightSidebar />
         </div>
       </main>
