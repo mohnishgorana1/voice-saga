@@ -15,7 +15,8 @@ export default function RootLayout({
         <div className="hidden md:block p-5 w-[20%] border-r-2 border-opacity-20 border-r-white-1">
           <LeftSidebar />
         </div>
-        <section className="p-5 w-full md:w-[60%] ">
+        {/*  border border-pink-500 */}
+        <section className="p-5 w-full md:w-[60%]">
           <div className="mx-auto flex w-full max-w-5xl flex-col max-sm:px-4">
 
             <div className="flex h-16 items-center justify-between md:hidden">
