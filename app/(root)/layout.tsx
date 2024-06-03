@@ -1,13 +1,39 @@
+import LeftSidebar from "@/components/LeftSidebar";
+import MobileNav from "@/components/MobileNav";
+import RightSidebar from "@/components/RightSidebar";
+// import { Toaster } from "@/components/ui/toaster";
+import Image from "next/image";
 
-interface RootLayoutProps {
+export default function RootLayout({
+  children,
+}: Readonly<{
   children: React.ReactNode;
-}
-
-export default async function RootLayout({ children }: RootLayoutProps) {
+}>) {
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* <Navbar /> */}
-      {children}
+    <div className="">
+      <main className="min-h-screen w-full p-5 flex flex-wrap ">
+        <div className="hidden md:block p-5 w-[20%] border-r-2 border-opacity-20 border-r-orange-1">
+          <LeftSidebar />
+        </div>
+        <section className="p-5 w-full md:w-[60%] ">
+          <div className="mx-auto flex w-full max-w-5xl flex-col max-sm:px-4">
+
+            <div className="flex h-16 items-center justify-between md:hidden">
+              <Image src='/icons/logo.svg' width={13} height={13} alt="menu-icon" />
+              <MobileNav />
+            </div>
+
+            <div className="flex flex-col md:pb-14 text-white-1">
+              {/* <Toaster /> */}
+              {children}
+            </div>
+
+          </div>
+        </section>
+        <div className="hidden md:block p-5 w-[20%] ">
+          <RightSidebar />
+        </div>
+      </main>
     </div>
   );
 }
