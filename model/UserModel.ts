@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 
 
@@ -7,11 +7,9 @@ const UserSchema = new Schema({
         type: String,
         required: [true, 'Username is required'],
         trim: true,
-        unique: true,
     },
     email: {
         type: String,
-        
         required: [true, 'Email is required'],
         unique: true,
         match: [/.+\@.+\..+/, 'Please use a valid email address'],

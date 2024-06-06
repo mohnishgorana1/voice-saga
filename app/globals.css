@@ -16,6 +16,20 @@ html {
   .input-class {
     @apply text-16 placeholder:text-16 bg-black-1 rounded-[6px] placeholder:text-gray-1 border-none text-gray-1;
   }
+  .card-wrapper{
+    @apply relative bg-gradient-to-b from-slate-700 to-slate-800 rounded-lg overflow-hidden
+  }
+  .card-wrapper::before {
+    background: conic-gradient(
+      rgba(244,114,182,0.4) 0deg,
+      rgba(192,132,252,0.4) 0deg
+      transparent 80deg
+    );
+    @apply absolute h-[150%] w-[150%] left-[-25%] top-[-25%] content-[''] animate-border-spin
+  }
+  .card-content{
+    @apply  w-[calc(100%-2px)] h-[calc(100%-2px)] bg-gradient-to-b from-slate-800 to-slate-900 
+  }
   .podcast_grid {
     @apply grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4;
   }
