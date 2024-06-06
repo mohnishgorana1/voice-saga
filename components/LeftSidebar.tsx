@@ -5,16 +5,46 @@ import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from './ui/button';
+import { deleteCookie } from 'cookies-next';
+import toast from 'react-hot-toast';
 
 const LeftSidebar = () => {
   const pathname = usePathname();
   const router = useRouter();
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [userId, setUserId] = useState(null)
+  const [username, setUsername] = useState("")
 
+  const handleLogout = () => {
+    // cookie
+    deleteCookie('token')
+    deleteCookie('user')
+
+    // local storage
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+
+    console.log("Logout Success");
+    setIsLoggedIn(false)
+
+    toast.success("Logout Success")
+  }
+
+  useEffect(() => {
+    // find user
+    const user = localStorage.getItem("user")
+    if (user) {
+      const currentUser = JSON.parse(user)
+      setIsLoggedIn(true)
+      setUsername(currentUser.name)
+      setUserId(currentUser.id)
+    }
+  }, [])
 
   return (
-    <section className=' text-white-1'>
+    <section className=' text-white-1 '>
       <nav className="flex flex-col gap-6">
         <Link href="/" className="flex cursor-pointer items-center gap-1 pb-10 max-lg:justify-center">
           <Image src="/icons/logo.svg" alt="logo" width={23} height={27} />
@@ -31,21 +61,32 @@ const LeftSidebar = () => {
             <p>{label}</p>
           </Link>
         })}
-      </nav>  
-      {/* <SignedOut>
-        <div className="flex-center w-full pb-14 max-lg:px-4 lg:pr-8">
-          <Button asChild className="text-16 w-full bg-orange-1 font-extrabold">
-            <Link href="/sign-in">Sign in</Link>
-          </Button>
-        </div>
-      </SignedOut>
-      <SignedIn>
-        <div className="flex-center w-full pb-14 max-lg:px-4 lg:pr-8">
-          <Button className="text-16 w-full bg-orange-1 font-extrabold" onClick={() => signOut(() => router.push('/'))}>
-            Log Out
-          </Button>
-        </div>
-      </SignedIn> */}
+      </nav>
+
+      <div className='mt-32'>
+        {
+          !isLoggedIn ?
+            (
+              <div className='flex flex-col items-center gap-5'>
+                <Button className="text-16 w-full bg-orange-1 font-extrabold border-2 border-orange-1 hover:bg-transparent hover:border-2 hover:border-orange-1 hover:text-orange-1 duration-300">
+                  <Link href="/sign-in">Login</Link>
+                </Button>
+                <Button className="text-16 w-full bg-orange-1 font-extrabold border-2 border-orange-1 hover:bg-transparent hover:border-2 hover:border-orange-1 hover:text-orange-1 duration-300">
+                  <Link href="/sign-up">Register</Link>
+                </Button>
+              </div>
+            )
+            :
+            (
+              <Button className="text-16 w-full bg-orange-1 font-extrabold border-2 border-orange-1 hover:bg-transparent hover:border-2 hover:border-orange-1 hover:text-orange-1 duration-300" onClick={handleLogout}>
+                Log Out
+              </Button>
+            )
+        }
+
+
+
+      </div>
     </section>
   )
 }
